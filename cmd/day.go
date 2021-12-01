@@ -22,35 +22,28 @@ import (
 	"github.com/tonygaetani/advent-of-code-2021/adventofcode"
 )
 
-// dayCmd represents the day command
-var dayCmd = &cobra.Command{
-	Use:   "day",
-	Short: "Runs the advent-of-code solution for the given day, if it exists",
-	Long:  `Runs the advent-of-code solution for the given day, if it exists`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
-			fmt.Println("Day expects exactly 1 argument, an integer between 1 and 25")
-			return
-		}
-
-		var day = args[0]
-		fmt.Printf("Running code for day %s\n", day)
-		if day == "1" {
-			adventofcode.Day1()
-		}
-	},
-}
-
 func init() {
+	var dayCmd = &cobra.Command{
+		Use:   "day",
+		Short: "Runs the advent-of-code solution for the given day, if it exists",
+		Long:  `Runs the advent-of-code solution for the given day, if it exists`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) != 1 {
+				fmt.Println("Day expects exactly 1 argument, an integer between 1 and 25")
+				return
+			}
+
+			var day = args[0]
+			fmt.Printf("Running code for day %s\n", day)
+			switch day {
+			case "1":
+				adventofcode.Day1()
+				break
+			default:
+				fmt.Printf("No implementation for day %s\n", day)
+			}
+		},
+	}
+
 	rootCmd.AddCommand(dayCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// dayCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// dayCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

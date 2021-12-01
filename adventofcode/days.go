@@ -42,21 +42,5 @@ func Day1() {
 		previous = current
 	}
 
-	// fmt.Printf("%d\n", len(input))
-
-	// for i := 0; i < len(input); i++ {
-	// 	if i == 0 {
-	// 		// no change
-	// 		continue
-	// 	}
-
-	// 	if input[i] > input[i-1] {
-	// 		fmt.Printf("%d: %d is > %d\n", i, input[i], input[i-1])
-	// 		increases++
-	// 	} else {
-	// 		fmt.Printf("%d: %d is not > %d\n", i, input[i], input[i-1])
-	// 	}
-	// }
-
 	fmt.Printf("%d increases\n", increases)
 }
