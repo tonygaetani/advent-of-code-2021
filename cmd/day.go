@@ -39,6 +39,9 @@ func init() {
 			case "1":
 				adventofcode.Day1()
 				break
+			case "2":
+				adventofcode.Day2()
+				break
 			default:
 				fmt.Printf("No implementation for day %s\n", day)
 			}
