@@ -67,23 +67,7 @@ func Day2() {
 
 func day2Part1() {
 	horizontal, depth := 0, 0
-	file, err := getInput("2")
-	if err != nil {
-		fmt.Println("Failed to get input for day 2")
-		return
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		text := scanner.Text()
-		split := strings.Split(text, " ")
-		command := split[0]
-		value, err := strconv.Atoi(split[1])
-		if err != nil {
-			fmt.Println("Failed to parse input")
-			return
-		}
+	processInput("2", func(command string, value int) {
 		switch command {
 		case "forward":
 			horizontal += value
@@ -98,30 +82,14 @@ func day2Part1() {
 			fmt.Printf("unknown command %s", command)
 			return
 		}
-	}
+	})
 
 	fmt.Printf("%d position\n", horizontal*depth)
 }
 
 func day2Part2() {
 	horizontal, depth, aim := 0, 0, 0
-	file, err := getInput("2")
-	if err != nil {
-		fmt.Println("Failed to get input for day 2")
-		return
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		text := scanner.Text()
-		split := strings.Split(text, " ")
-		command := split[0]
-		value, err := strconv.Atoi(split[1])
-		if err != nil {
-			fmt.Println("Failed to parse input")
-			return
-		}
+	processInput("2", func(command string, value int) {
 		if value == 0 {
 			fmt.Println("NOPE NOPE NOPE")
 			return
@@ -141,7 +109,29 @@ func day2Part2() {
 			fmt.Printf("unknown command %s", command)
 			return
 		}
-	}
+	})
 
 	fmt.Printf("%d position\n", horizontal*depth)
+}
+
+func processInput(day string, fn func(string, int)) {
+	file, err := getInput(day)
+	if err != nil {
+		fmt.Println("Failed to get input for day 2")
+		return
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		text := scanner.Text()
+		split := strings.Split(text, " ")
+		command := split[0]
+		value, err := strconv.Atoi(split[1])
+		if err != nil {
+			fmt.Println("Failed to parse input")
+			return
+		}
+		fn(command, value)
+	}
 }
